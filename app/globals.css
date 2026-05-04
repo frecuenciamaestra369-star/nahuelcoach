@@ -1,0 +1,134 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ── Base ── */
+  --background:          #060810;
+  --foreground:          #EEF2F8;
+
+  /* ── Cards & Popovers ── */
+  --card:                #0C1020;
+  --card-foreground:     #EEF2F8;
+  --popover:             #0C1020;
+  --popover-foreground:  #EEF2F8;
+
+  /* ── Primary — deep navy blue ── */
+  --primary:             #1B4FD8;
+  --primary-foreground:  #EEF2F8;
+
+  /* ── Accent — sky / celeste ── */
+  --accent:              #38BDF8;
+  --accent-foreground:   #060810;
+
+  /* ── Secondary — dark surface ── */
+  --secondary:           #0F1829;
+  --secondary-foreground:#EEF2F8;
+
+  /* ── Muted ── */
+  --muted:               #111827;
+  --muted-foreground:    #94A3B8;
+
+  /* ── State ── */
+  --destructive:         #DC2626;
+  --destructive-foreground:#EEF2F8;
+
+  /* ── Borders & inputs ── */
+  --border:              #1E2D4A;
+  --input:               #0F1829;
+  --ring:                #1B4FD8;
+
+  /* ── Radius ── */
+  --radius:              0.25rem;
+
+
+}
+
+@theme inline {
+  --font-sans:  'Inter',            'Inter Fallback',           sans-serif;
+  --font-serif: 'Playfair Display', 'Playfair Display Fallback',serif;
+  --font-mono:  'Geist Mono',       'Geist Mono Fallback';
+
+  --color-background:          var(--background);
+  --color-foreground:          var(--foreground);
+  --color-card:                var(--card);
+  --color-card-foreground:     var(--card-foreground);
+  --color-popover:             var(--popover);
+  --color-popover-foreground:  var(--popover-foreground);
+  --color-primary:             var(--primary);
+  --color-primary-foreground:  var(--primary-foreground);
+  --color-secondary:           var(--secondary);
+  --color-secondary-foreground:var(--secondary-foreground);
+  --color-muted:               var(--muted);
+  --color-muted-foreground:    var(--muted-foreground);
+  --color-accent:              var(--accent);
+  --color-accent-foreground:   var(--accent-foreground);
+  --color-destructive:         var(--destructive);
+  --color-destructive-foreground:var(--destructive-foreground);
+  --color-border:              var(--border);
+  --color-input:               var(--input);
+  --color-ring:                var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #1B4FD8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #38BDF8; }
+
+/* ────────────────────────────────────────────
+   GRADIENT UTILITIES
+──────────────────────────────────────────── */
+
+/* Blue premium headline gradient */
+.gradient-text {
+  background: linear-gradient(120deg, #1B4FD8 0%, #3B82F6 45%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Blue-to-cyan gradient (used on hero tagline) */
+.gradient-text-gold-blue {
+  background: linear-gradient(105deg, #1B4FD8 0%, #3B82F6 35%, #93C5FD 65%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle decorative line */
+.accent-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #38BDF8, transparent);
+}
+
+/* Elegant border */
+.elegant-border       { border: 1px solid rgba(56, 189, 248, 0.18); }
+.elegant-border-hover:hover { border-color: rgba(56, 189, 248, 0.4); }
+
+/* Testimonial carousel */
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-scroll { animation: scroll 40s linear infinite; }
+.animate-scroll:hover { animation-play-state: paused; }
+
+/* Fade-up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.8s ease-out forwards; }
