@@ -8,7 +8,8 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { toast } from 'sonner'
-import { Loader2, Save, Plus, Trash2, CreditCard, Star, CheckCircle2 } from 'lucide-react'
+import { Loader2, Save, Plus, Trash2, CreditCard, Star, CheckCircle2, X } from 'lucide-react'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 import {
   Dialog,
   DialogContent,
@@ -90,6 +91,7 @@ export default function ProgramsAdmin() {
       features: [],
       button_text: 'Empezar ahora',
       button_url: '',
+      image_url: '',
       is_featured: false,
       is_active: true,
       sort_order: programs.length + 1
@@ -289,6 +291,12 @@ export default function ProgramsAdmin() {
                   />
                 </div>
               </div>
+
+              <ImageUpload 
+                label="Imagen / Icono del Programa (Opcional)"
+                value={editingProgram.image_url}
+                onChange={url => setEditingProgram({...editingProgram, image_url: url})}
+              />
             </div>
           )}
 

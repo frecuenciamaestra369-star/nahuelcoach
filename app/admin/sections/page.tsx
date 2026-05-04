@@ -274,11 +274,18 @@ export default function SectionsAdmin() {
                 </div>
               </div>
 
-              <ImageUpload 
-                label="Imagen de la Sección"
-                value={editingSection.image_url}
-                onChange={url => setEditingSection({...editingSection, image_url: url})}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <ImageUpload 
+                  label="Imagen Principal"
+                  value={editingSection.image_url}
+                  onChange={url => setEditingSection({...editingSection, image_url: url})}
+                />
+                <ImageUpload 
+                  label="Imagen Secundaria (Opcional)"
+                  value={editingSection.image_url_2}
+                  onChange={url => setEditingSection({...editingSection, image_url_2: url})}
+                />
+              </div>
             </div>
           )}
 
