@@ -29,9 +29,15 @@ const features = [
   "Corrección constante",
 ]
 
-export function ProcessSection() {
+export function ProcessSection({ data }: { data: any }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const content = {
+    title: data?.title || "Cómo funciona",
+    subtitle: data?.subtitle || "El proceso",
+    description: data?.description || ""
+  }
 
   return (
     <section id="proceso" ref={ref} className="py-28 md:py-36 relative">
@@ -43,10 +49,10 @@ export function ProcessSection() {
           className="text-center mb-16 md:mb-20"
         >
           <p className="text-[11px] tracking-[0.3em] text-primary/80 uppercase mb-4">
-            El proceso
+            {content.subtitle}
           </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-foreground">
-            Cómo funciona
+            {content.title}
           </h2>
         </motion.div>
 
@@ -88,6 +94,16 @@ export function ProcessSection() {
             </motion.div>
           ))}
         </div>
+
+        {content.description && (
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            className="text-center text-muted-foreground max-w-2xl mx-auto mt-8 font-light"
+          >
+            {content.description}
+          </motion.p>
+        )}
 
         {/* Features */}
         <motion.div

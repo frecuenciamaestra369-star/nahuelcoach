@@ -2,7 +2,7 @@
 
 import { Instagram, Youtube, Mail } from "lucide-react"
 
-export function Footer() {
+export function Footer({ links }: { links: any }) {
   return (
     <footer className="py-14 border-t border-border/30">
       <div className="container mx-auto px-6 md:px-12">
@@ -17,27 +17,37 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-8">
-            <a
-              href="#"
-              className="text-muted-foreground/50 hover:text-primary transition-colors duration-300"
-              aria-label="Instagram"
-            >
-              <Instagram size={18} strokeWidth={1.5} />
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground/50 hover:text-primary transition-colors duration-300"
-              aria-label="YouTube"
-            >
-              <Youtube size={18} strokeWidth={1.5} />
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground/50 hover:text-primary transition-colors duration-300"
-              aria-label="Email"
-            >
-              <Mail size={18} strokeWidth={1.5} />
-            </a>
+            {links?.instagram && (
+              <a
+                href={links.instagram}
+                className="text-muted-foreground/50 hover:text-primary transition-colors duration-300"
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram size={18} strokeWidth={1.5} />
+              </a>
+            )}
+            {links?.whatsapp && (
+              <a
+                href={`https://wa.me/${links.whatsapp}`}
+                className="text-muted-foreground/50 hover:text-primary transition-colors duration-300"
+                aria-label="WhatsApp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Youtube size={18} strokeWidth={1.5} />
+              </a>
+            )}
+            {links?.contact_email && (
+              <a
+                href={`mailto:${links.contact_email}`}
+                className="text-muted-foreground/50 hover:text-primary transition-colors duration-300"
+                aria-label="Email"
+              >
+                <Mail size={18} strokeWidth={1.5} />
+              </a>
+            )}
           </div>
 
           <p className="text-muted-foreground/40 text-xs tracking-wide">

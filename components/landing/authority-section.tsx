@@ -12,9 +12,17 @@ const pillars = [
   { text: "Estructura de vida" },
 ]
 
-export function AuthoritySection() {
+export function AuthoritySection({ data }: { data: any }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const content = {
+    title: data?.title || "No es solo físico.",
+    subtitle: data?.subtitle || "Es cuerpo, energía y poder personal.",
+    description: data?.description || "Un sistema integral que trabaja en todas las dimensiones de tu vida para crear una transformación real y duradera.",
+    image_1: data?.image_url || "/images/hero-gym.jpg",
+    image_2: data?.image_url_2 || "/images/hero-gym.jpg",
+  }
 
   return (
     <section ref={ref} className="py-28 md:py-36 relative">
@@ -30,7 +38,7 @@ export function AuthoritySection() {
             <div className="space-y-4">
               <div className="rounded-lg overflow-hidden aspect-[4/5] relative group border border-border/30">
                 <Image
-                  src="/images/hero-gym.jpg"
+                  src={content.image_1}
                   alt="Sesión de entrenamiento"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -41,7 +49,7 @@ export function AuthoritySection() {
             <div className="space-y-4 pt-8">
               <div className="rounded-lg overflow-hidden aspect-[4/5] relative group border border-border/30">
                 <Image
-                  src="/images/hero-gym.jpg"
+                  src={content.image_2}
                   alt="Coaching personalizado"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -63,15 +71,14 @@ export function AuthoritySection() {
                 Sobre el método
               </p>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight">
-                No es solo físico.
+                {content.title}
                 <br />
-                <span className="gradient-text">Es cuerpo, energía y poder personal.</span>
+                <span className="gradient-text">{content.subtitle}</span>
               </h2>
             </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed font-light max-w-lg">
-              Un sistema integral que trabaja en todas las dimensiones de tu vida 
-              para crear una transformación real y duradera.
+              {content.description}
             </p>
 
             <div className="grid grid-cols-2 gap-3 md:gap-4">

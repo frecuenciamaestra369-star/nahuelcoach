@@ -15,9 +15,15 @@ const transformations = [
   { text: "Presencia y liviandad" },
 ]
 
-export function TransformationSection() {
+export function TransformationSection({ data }: { data: any }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const content = {
+    title: data?.title || "Lo que vas a experimentar",
+    subtitle: data?.subtitle || "Resultados",
+    description: data?.description || "Se trata de convertirte en alguien que sostiene."
+  }
 
   return (
     <section id="resultados" ref={ref} className="py-28 md:py-36 relative">
@@ -29,10 +35,10 @@ export function TransformationSection() {
           className="text-center mb-16 md:mb-20"
         >
           <p className="text-[11px] tracking-[0.3em] text-primary/80 uppercase mb-4">
-            Resultados
+            {content.subtitle}
           </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-foreground">
-            Lo que vas a experimentar
+            {content.title}
           </h2>
         </motion.div>
 
@@ -64,11 +70,11 @@ export function TransformationSection() {
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
             No se trata solo de entrenar…
           </p>
-          <p className="text-lg md:text-xl leading-relaxed mt-2">
-            <span className="gradient-text font-normal">
-              Se trata de convertirte en alguien que sostiene.
+          <div className="text-lg md:text-xl leading-relaxed mt-2">
+            <span className="gradient-text font-normal whitespace-pre-wrap">
+              {content.description}
             </span>
-          </p>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -11,15 +11,33 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] },
 })
 
-export function Hero() {
+export function Hero({ data }: { data: any }) {
+  const content = {
+    bsl: data?.bsl || "UN PROCESO DE TRANSFORMACIÓN GUIADO",
+    bsl_detail: data?.bsl_detail || "ORDEN INTERNO • ESTRUCTURA • ACCIÓN SOSTENIDA",
+    title: data?.title || "SABÉS QUÉ HACER…",
+    title_accent: data?.title_accent || "PERO NO LO SOSTENÉS.",
+    subtitle: data?.subtitle || "Empezás con fuerza. Pero la constancia se diluye. No es falta de motivación… es falta de estructura.",
+    primary_btn: data?.primary_btn || "Agendar llamada",
+    primary_url: data?.primary_url || "#",
+    secondary_btn: data?.secondary_btn || "Ver cómo funciona",
+    secondary_url: data?.secondary_url || "#",
+    bg_desktop: data?.bg_desktop || "/images/hero-training.jpg",
+    bg_mobile: data?.bg_mobile || data?.bg_desktop || "/images/hero-training.jpg",
+  }
+
+  // Handle split titles if they are in the same field or separate
+  const displayTitle = content.title.includes('…') ? content.title.split('…')[0] + '…' : content.title
+  const displayAccent = content.title.includes('…') ? content.title.split('…')[1] : content.title_accent
+
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
 
       {/* ── BACKGROUND IMAGE ─────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero-training.jpg"
-          alt="Atleta en entrenamiento de alto rendimiento"
+          src={content.bg_desktop}
+          alt="Banner Principal"
           fill
           className="object-cover object-center"
           priority
@@ -37,13 +55,13 @@ export function Hero() {
         <motion.div {...fadeUp(0.3)} className="flex items-center gap-3 mb-10">
           <span className="w-8 h-px bg-[#38BDF8]/70" />
           <p className="text-[10px] tracking-[0.45em] text-[#38BDF8]/80 font-medium uppercase">
-            Nahuel Coach Fitness
+            {content.bsl}
           </p>
         </motion.div>
 
         {/* Eyebrow */}
         <motion.p {...fadeUp(0.45)} className="text-[11px] tracking-[0.3em] text-[var(--muted-foreground)] uppercase mb-6">
-          Coaching de Transformación Personal
+          {content.bsl_detail}
         </motion.p>
 
         {/* Main headline */}
@@ -52,10 +70,10 @@ export function Hero() {
           className="font-serif font-normal leading-[1.06] tracking-tight text-balance"
         >
           <span className="block text-5xl md:text-6xl lg:text-7xl text-foreground">
-            Sabés qué hacer.
+            {displayTitle}
           </span>
           <span className="block text-5xl md:text-6xl lg:text-7xl mt-2 font-medium italic bg-gradient-to-r from-[#1B4FD8] via-[#3B82F6] to-[#38BDF8] bg-clip-text text-transparent">
-            Pero no lo sostenés.
+            {displayAccent}
           </span>
         </motion.h1>
 
@@ -70,10 +88,7 @@ export function Hero() {
 
         {/* Body copy */}
         <motion.p {...fadeUp(1.05)} className="text-base md:text-lg text-[#94A3B8] font-light leading-relaxed max-w-md">
-          No es falta de motivación.{" "}
-          <span className="text-[#CBD5E1] font-normal">
-            Es falta de estructura, guía y un sistema que te sostenga cuando la voluntad flaquea.
-          </span>
+          {content.subtitle}
         </motion.p>
 
         {/* Pillars row */}
@@ -95,16 +110,18 @@ export function Hero() {
         <motion.div {...fadeUp(1.35)} className="flex flex-col sm:flex-row items-start gap-4">
           <Button
             size="lg"
+            asChild
             className="bg-primary hover:bg-primary/90 text-white font-semibold text-xs tracking-[0.18em] px-10 py-6 uppercase transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_24px_rgba(27,79,216,0.45)] rounded-sm"
           >
-            Agendar llamada
+            <a href={content.primary_url}>{content.primary_btn}</a>
           </Button>
           <Button
             variant="outline"
             size="lg"
+            asChild
             className="border-[#1E2D4A] hover:border-[#38BDF8]/50 text-[#94A3B8] hover:text-[#38BDF8] bg-transparent font-normal text-xs tracking-[0.15em] px-8 py-6 uppercase transition-all duration-300 rounded-sm"
           >
-            Ver cómo funciona
+            <a href={content.secondary_url}>{content.secondary_btn}</a>
           </Button>
         </motion.div>
 

@@ -6,20 +6,21 @@ import { useRef } from "react"
 import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const plans = [
+const defaultPlans = [
   {
     name: "Impacto Base",
-    featured: false,
+    is_featured: false,
     features: [
       "Rutina personalizada",
       "Plan de alimentación",
       "1 sesión inicial",
     ],
-    cta: "Consultar",
+    button_text: "Consultar",
+    price: "$100",
   },
   {
     name: "Proceso Completo",
-    featured: true,
+    is_featured: true,
     features: [
       "12 sesiones 1:1",
       "Seguimiento personalizado",
@@ -27,24 +28,28 @@ const plans = [
       "Acceso prioritario",
       "Soporte diario",
     ],
-    cta: "Agendar llamada",
+    button_text: "Agendar llamada",
+    price: "$900",
   },
   {
     name: "Impacto Vital",
-    featured: false,
+    is_featured: false,
     features: [
       "8 semanas de programa",
       "Sistema paso a paso",
       "Seguimiento semanal",
       "Material exclusivo",
     ],
-    cta: "Consultar",
+    button_text: "Consultar",
+    price: "$450",
   },
 ]
 
-export function PricingSection() {
+export function PricingSection({ programs }: { programs: any[] }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  
+  const displayPlans = programs && programs.length > 0 ? programs : defaultPlans
 
   return (
     <section id="programas" ref={ref} className="py-28 md:py-36 relative">
@@ -64,19 +69,19 @@ export function PricingSection() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
-          {plans.map((plan, index) => (
+          {displayPlans.map((plan, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.12 }}
               className={`relative rounded-lg p-8 flex flex-col transition-all duration-500 ${
-                plan.featured
+                plan.is_featured
                   ? "border-2 border-primary/50 bg-card/40 md:scale-105 z-10"
                   : "border border-border/40 bg-card/20 hover:border-primary/30"
               }`}
             >
-              {plan.featured && (
+              {plan.is_featured && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-[10px] font-medium tracking-wider uppercase">
                   Recomendado
                 </div>
@@ -86,10 +91,11 @@ export function PricingSection() {
                 <h3 className="text-lg font-medium text-foreground tracking-wide">
                   {plan.name}
                 </h3>
+                <p className="text-2xl font-bold text-white mt-2">{plan.price}</p>
               </div>
 
               <ul className="space-y-4 mb-10 flex-grow">
-                {plan.features.map((feature, idx) => (
+                {plan.features.map((feature: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
                     <div className="w-5 h-5 rounded-full border border-primary/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check className="w-3 h-3 text-primary" strokeWidth={2} />
@@ -100,13 +106,14 @@ export function PricingSection() {
               </ul>
 
               <Button
+                asChild
                 className={`w-full py-6 font-medium text-sm tracking-wide transition-all duration-300 ${
-                  plan.featured
+                  plan.is_featured
                     ? "bg-primary text-primary-foreground hover:bg-primary/90"
                     : "bg-transparent border border-border hover:border-primary/50 text-foreground hover:bg-primary/5"
                 }`}
               >
-                {plan.cta}
+                <a href={plan.button_url || '#'}>{plan.button_text}</a>
               </Button>
             </motion.div>
           ))}

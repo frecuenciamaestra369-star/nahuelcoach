@@ -4,9 +4,14 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 
-export function ImpactStatement() {
+export function ImpactStatement({ data }: { data: any }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const content = {
+    title: data?.title || "El poder no está en empezar.",
+    subtitle: data?.subtitle || "Está en sostener.",
+  }
 
   return (
     <section ref={ref} className="py-28 md:py-40 relative overflow-hidden">
@@ -29,7 +34,7 @@ export function ImpactStatement() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-serif text-3xl md:text-5xl lg:text-6xl font-normal leading-tight tracking-tight"
           >
-            <span className="text-muted-foreground/80">El poder no está en empezar.</span>
+            <span className="text-muted-foreground/80">{content.title}</span>
           </motion.h2>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -37,7 +42,7 @@ export function ImpactStatement() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="font-serif text-3xl md:text-5xl lg:text-6xl font-normal leading-tight tracking-tight mt-2 md:mt-4"
           >
-            <span className="gradient-text">Está en sostener.</span>
+            <span className="gradient-text">{content.subtitle}</span>
           </motion.h2>
         </motion.div>
       </div>

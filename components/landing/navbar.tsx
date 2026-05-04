@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function Navbar() {
+export function Navbar({ links }: { links: any }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  const ctaUrl = links?.google_meet || (links?.whatsapp ? `https://wa.me/${links.whatsapp}?text=${encodeURIComponent(links.whatsapp_message || '')}` : "#")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,9 +64,10 @@ export function Navbar() {
           <div className="hidden md:block">
             <Button
               size="sm"
+              asChild
               className="bg-transparent border border-[#1B4FD8]/50 text-[#38BDF8] hover:bg-[#1B4FD8] hover:text-white font-medium text-xs tracking-wider px-6 py-5 transition-all duration-300 rounded-sm"
             >
-              AGENDAR LLAMADA
+              <a href={ctaUrl}>AGENDAR LLAMADA</a>
             </Button>
           </div>
 
@@ -113,9 +116,10 @@ export function Navbar() {
                 transition={{ delay: 0.4 }}
               >
                 <Button
+                  asChild
                   className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-sm tracking-wider px-10 py-6 mt-4"
                 >
-                  AGENDAR LLAMADA
+                  <a href={ctaUrl}>AGENDAR LLAMADA</a>
                 </Button>
               </motion.div>
             </motion.div>

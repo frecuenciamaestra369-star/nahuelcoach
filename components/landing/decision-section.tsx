@@ -11,9 +11,14 @@ const consequences = [
   "Estancamiento",
 ]
 
-export function DecisionSection() {
+export function DecisionSection({ data }: { data: any }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const content = {
+    title: data?.title || "Seguir igual también es una decisión.",
+    description: data?.description || "Postergar lo que querés… tiene un precio.",
+  }
 
   return (
     <section ref={ref} className="py-28 md:py-36 relative">
@@ -25,11 +30,11 @@ export function DecisionSection() {
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight mb-4">
-            Seguir igual también es una decisión.
+            {content.title}
           </h2>
-          <p className="font-serif text-2xl md:text-3xl text-muted-foreground/70 font-light">
-            Postergar lo que querés… tiene un precio.
-          </p>
+          <div className="font-serif text-2xl md:text-3xl text-muted-foreground/70 font-light whitespace-pre-wrap">
+            {content.description}
+          </div>
 
           <div className="flex flex-wrap justify-center gap-3 mt-12 md:mt-16">
             {consequences.map((item, index) => (

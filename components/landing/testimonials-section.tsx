@@ -4,39 +4,41 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 
-const testimonials = [
+const defaultTestimonials = [
   {
     name: "Martín G.",
-    quote: "Pasé de empezar mil veces a sostener por primera vez en mi vida. Tres meses después sigo sin fallar.",
+    description: "Pasé de empezar mil veces a sostener por primera vez en mi vida. Tres meses después sigo sin fallar.",
   },
   {
     name: "Lucía P.",
-    quote: "No solo bajé de peso, cambié mi relación conmigo misma. Ahora confío en lo que me prometo.",
+    description: "No solo bajé de peso, cambié mi relación conmigo misma. Ahora confío en lo que me prometo.",
   },
   {
     name: "Carlos R.",
-    quote: "La estructura que armamos juntos me cambió la vida. Ya no dependo de la motivación.",
+    description: "La estructura que armamos juntos me cambió la vida. Ya no dependo de la motivación.",
   },
   {
     name: "Ana M.",
-    quote: "Por primera vez entendí que el problema no era el entrenamiento, era yo. Ahora todo fluye.",
+    description: "Por primera vez entendí que el problema no era el entrenamiento, era yo. Ahora todo fluye.",
   },
   {
     name: "Diego S.",
-    quote: "El seguimiento diario fue clave. Nunca me había sentido tan acompañado en un proceso.",
+    description: "El seguimiento diario fue clave. Nunca me había sentido tan acompañado en un proceso.",
   },
   {
     name: "Valentina T.",
-    quote: "Mi energía cambió completamente. Me levanto con ganas de hacer todo lo que antes postergaba.",
+    description: "Mi energía cambió completamente. Me levanto con ganas de hacer todo lo que antes postergaba.",
   },
 ]
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ testimonials: dynamicTestimonials }: { testimonials: any[] }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  
+  const displayItems = dynamicTestimonials && dynamicTestimonials.length > 0 ? dynamicTestimonials : defaultTestimonials
 
   // Duplicate for infinite scroll effect
-  const duplicatedTestimonials = [...testimonials, ...testimonials]
+  const duplicatedTestimonials = [...displayItems, ...displayItems]
 
   return (
     <section id="testimonios" ref={ref} className="py-28 md:py-36 relative overflow-hidden">
@@ -71,13 +73,17 @@ export function TestimonialsSection() {
                 <div className="border border-border/40 rounded-lg p-8 h-full bg-card/20 hover:border-primary/30 transition-all duration-500">
                   <div className="w-8 h-px bg-primary/40 mb-6" />
                   <p className="text-foreground/90 leading-relaxed mb-8 font-light italic">
-                    &ldquo;{testimonial.quote}&rdquo;
+                    &ldquo;{testimonial.description}&rdquo;
                   </p>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center">
-                      <span className="text-primary font-medium text-sm">
-                        {testimonial.name.charAt(0)}
-                      </span>
+                    <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center overflow-hidden">
+                      {testimonial.image_url ? (
+                        <img src={testimonial.image_url} alt={testimonial.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-primary font-medium text-sm">
+                          {testimonial.name.charAt(0)}
+                        </span>
+                      )}
                     </div>
                     <span className="text-muted-foreground text-sm tracking-wide">
                       {testimonial.name}

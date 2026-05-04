@@ -23,9 +23,15 @@ const problems = [
   },
 ]
 
-export function ProblemSection() {
+export function ProblemSection({ data }: { data: any }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const content = {
+    title: data?.title || "¿Te sentís identificado?",
+    subtitle: data?.subtitle || "El diagnóstico",
+    description: data?.description || "El verdadero problema no es fallar… es acostumbrarte a no confiar en vos."
+  }
 
   return (
     <section ref={ref} className="py-28 md:py-36 relative">
@@ -37,10 +43,10 @@ export function ProblemSection() {
           className="text-center mb-20"
         >
           <p className="text-[11px] tracking-[0.3em] text-primary/80 uppercase mb-4">
-            El diagnóstico
+            {content.subtitle}
           </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-foreground">
-            ¿Te sentís identificado?
+            {content.title}
           </h2>
         </motion.div>
 
@@ -72,12 +78,9 @@ export function ProblemSection() {
           className="mt-20 md:mt-24 text-center max-w-2xl mx-auto"
         >
           <div className="w-12 h-px bg-primary/30 mx-auto mb-8" />
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
-            El verdadero problema no es fallar…
-          </p>
-          <p className="text-lg md:text-xl text-foreground leading-relaxed mt-2 font-normal">
-            es acostumbrarte a no confiar en vos.
-          </p>
+          <div className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light whitespace-pre-wrap">
+            {content.description}
+          </div>
         </motion.div>
       </div>
     </section>
