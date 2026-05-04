@@ -13,6 +13,8 @@ import { FinalCTA } from "@/components/landing/final-cta"
 import { Footer } from "@/components/landing/footer"
 import { getHeroData, getLinksData, getSectionsData, getTestimonialsData, getProgramsData } from "@/lib/supabase/data"
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const [heroData, linksData, sections, testimonials, programs] = await Promise.all([
     getHeroData(),
